@@ -1,5 +1,6 @@
 import type { V2_MetaFunction } from "@remix-run/cloudflare";
 import { User } from "lucide-react";
+import ThemeToggle from "~/components/structure/theme-toggle";
 import { Button } from "~/components/ui/button";
 
 export const meta: V2_MetaFunction = () => {
@@ -17,7 +18,7 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
 	return (
-		<div className="selection:bg-brand selection:text-white">
+		<div className="selection:bg-primary selection:text-primary-foreground">
 			<div className="grid min-h-screen place-content-center ">
 				<div className="w-96 text-center">
 					<div>
@@ -27,6 +28,7 @@ export default function Index() {
 							className="mx-auto mb-8 w-36"
 						/>
 					</div>
+
 					<p className="text-center">
 						Sistema de gestão de ações criado
 						<br /> e mantido pela{" "}
@@ -49,6 +51,9 @@ export default function Index() {
 						</Button>
 					</div>
 				</div>
+			</div>
+			<div className="fixed right-2 top-2">
+				<ThemeToggle />
 			</div>
 		</div>
 	);

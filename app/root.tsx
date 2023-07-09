@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/cloudflare";
+import { json, LoaderArgs, type LinksFunction } from "@remix-run/cloudflare";
 import {
 	Links,
 	LiveReload,
@@ -6,8 +6,17 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useLoaderData,
 } from "@remix-run/react";
 import styles from "~/globals.css";
+import {
+	ThemeBody,
+	ThemeHead,
+	ThemeProvider,
+	useTheme,
+} from "./lib/theme-provider";
+import clsx from "clsx";
+import { getThemeSession } from "./lib/theme.server";
 
 export const links: LinksFunction = () => [
 	{ rel: "stylesheet", href: styles },
@@ -35,9 +44,20 @@ export const links: LinksFunction = () => [
 	{ rel: "manifest", href: "/site.webmanifest" },
 ];
 
-export default function App() {
+export const loader = async ({ request }: LoaderArgs) => {
+	const themeSession = await getThemeSession(request);
+
+	return json({
+		theme: themeSession.getTheme(),
+	});
+};
+
+function App() {
+	const data = useLoaderData<typeof loader>();
+
+	const [theme] = useTheme();
 	return (
-		<html lang="pt-br" className="dark">
+		<html lang="pt-br" className={clsx(theme)}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta
@@ -46,13 +66,24 @@ export default function App() {
 				/>
 				<Meta />
 				<Links />
+				<ThemeHead ssrTheme={Boolean(data.theme)} />
 			</head>
 			<body>
 				<Outlet />
+				<ThemeBody ssrTheme={Boolean(data.theme)} />
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
 			</body>
 		</html>
+	);
+}
+
+export default function AppWithProviders() {
+	const data = useLoaderData<typeof loader>();
+	return (
+		<ThemeProvider specifiedTheme={data.theme}>
+			<App />
+		</ThemeProvider>
 	);
 }

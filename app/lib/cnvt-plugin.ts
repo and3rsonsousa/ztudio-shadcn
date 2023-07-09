@@ -110,9 +110,9 @@ export const cnvtPlugin = plugin(
 					},
 				},
 				borderRadius: {
+					sm: "calc(var(--radius) / 4)",
+					md: "calc(var(--radius) / 2)",
 					lg: "var(--radius)",
-					md: "calc(var(--radius) - .25rem)",
-					sm: "calc(var(--radius) - .5rem)",
 				},
 				keyframes: {
 					"accordion-down": {

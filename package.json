@@ -22,7 +22,7 @@
 		"clsx": "^1.2.1",
 		"dayjs": "^1.11.9",
 		"isbot": "^3.6.8",
-		"lucide-react": "^0.258.0",
+		"lucide-react": "^0.259.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.45.1",
@@ -32,7 +32,7 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^3.19.0",
-		"@remix-run/dev": "^1.5.1",
+		"@remix-run/dev": "^1.18.1",
 		"@remix-run/eslint-config": "^1.18.1",
 		"@types/react": "^18.0.35",
 		"@types/react-dom": "^18.0.11",
